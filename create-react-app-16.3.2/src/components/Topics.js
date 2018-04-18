@@ -1,0 +1,45 @@
+import React from "react";
+import { Link, Route } from "react-router-dom";
+
+function Topic({ match }) {
+  return <h3>{match.params.topicId}</h3>;
+}
+
+export default function Topics({ match }) {
+  // passing in match - router props from react-router-dom
+  return (
+    <div>
+      <h2>Topics</h2>
+      <ul>
+        <li>
+          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/components`}>Components</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/props-v-state`}>Props VS State</Link>
+        </li>
+      </ul>
+      <hr />
+      <Route path={`${match.path}/:topicId`} component={Topic} />
+
+      {/*  return a prop example
+      <Route
+        path={`${match.path}/:topicId`}
+        render={() => {
+          return <Topic name="Bryan" />;
+        }}
+      />
+      */}
+
+      <Route
+        exact
+        path={match.url}
+        render={() => {
+          return <h3>Please select a topic</h3>;
+        }}
+      />
+    </div>
+  );
+}
